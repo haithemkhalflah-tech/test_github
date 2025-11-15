@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zombie killer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio src="./music/bg.mp3" autoplay loop></audio>
+    <h1>kill him</h1>
+<div class="main">
+    <div class="left">
+        <img src="./imgs/zombie_nocry.png" alt="zombie_attack"  draggable="false" id="z_img">
+    </div>
+    <div class="right">
+        <input type="number" name="start_time" id="start_time">
+        <button onclick="start()">start_game</button>
+        <p>time remaining <span class="last_time">0</span>seconds</p>
+        <p>shooted <span class="counter" >0</span> times</p>
+        <p>current record <span class="record">0</span> clicks</p>
+    </div>
+</div>
+    <script src="java.js"></script>
+</body>
+</html>
