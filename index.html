@@ -1,28 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>zombie killer</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zombie Killer</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Freckle+Face&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <audio src="./music/bg.mp3" autoplay loop></audio>
-    <h1>kill him</h1>
-<div class="main">
-    <div class="left">
-        <img src="./imgs/zombie_nocry.png" alt="zombie_attack"  draggable="false" id="z_img">
+  <audio src="./music/bg.mp3" autoplay loop></audio>
+
+
+  <h1>Zombie Killer</h1>
+
+  <div class="main">
+    <div class="left" id="playfield">
+      <img src="./imgs/zombie_nocry.png" alt="zombie_attack" draggable="false" id="z_img">
     </div>
+
     <div class="right">
-        <input type="number" name="start_time" id="start_time" placeholder="give a positive integer">
-        <button onclick="start()">start_game</button>
-        <button onclick="initialize()">initialize</button>
-        <p>time remaining <span class="last_time">0</span>seconds</p>
-        <p>shooted <span class="counter" >0</span> times</p>
-        <p>current record <span class="record">0</span> clicks</p>
-        <p>shots per second <span class="ratio">0</span></p>
+      <div class="modes">
+        <button class="mode-btn" data-seconds="5">5s</button>
+        <button class="mode-btn" data-seconds="10">10s</button>
+        <button class="mode-btn" data-seconds="30">30s</button>
+        <button class="mode-btn" data-seconds="60">60s</button>
+      </div>
+
+      <input type="number" name="start_time" id="start_time" placeholder="or type custom seconds" min="1">
+      <div class="difficulty">
+        <label>
+          Difficulty:
+          <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </label>
+      </div>
+
+      <button id="start_btn">start_game</button>
+      <button id="init_btn">initialize</button>
+
+      <p>time remaining <span class="last_time">0</span> seconds</p>
+      <p>shooted <span class="counter">0</span> times</p>
+      <p>current record <span class="record">0</span> clicks</p>
+      <p>shots per second <span class="ratio">0</span></p>
+      <p>rank: <span class="rank">-</span></p>
     </div>
-</div>
-    <script src="java.js"></script>
+  </div>
+
+  <script src="java.js"></script>
 </body>
 </html>
