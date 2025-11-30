@@ -1,3 +1,5 @@
+/* Réinitialisation de base : pas de marges/paddings par défaut, 
+   box-sizing sur border-box et petite transition pour les effets */
 *{
   margin: 0;
   padding: 0;
@@ -5,6 +7,12 @@
   transition: all 0.3s ease;
 }
 
+/* Style général de la page : 
+   - centrage vertical
+   - fond dégradé sombre
+   - texte couleur "wheat"
+   - police Freckle Face
+*/
 body{
   display: flex;
   flex-direction: column;
@@ -17,6 +25,7 @@ body{
   padding: 20px;
 }
 
+/* Titre principal du jeu (Zombie Killer) */
 body h1{
   width: 100%;
   max-width: 1200px;
@@ -29,6 +38,7 @@ body h1{
   text-shadow: 0 0 6px #239bc3, 0 0 16px #00ffc6;
 }
 
+/* Conteneur principal : zone de jeu + panneau de contrôle */
 .main{
   display: flex;
   justify-content: space-between;
@@ -38,6 +48,7 @@ body h1{
   gap: 40px;
 }
 
+/* Zone de gauche : playfield où le zombie se déplace */
 div .left{
   position: relative;
   flex: 0 0 50%;
@@ -49,6 +60,7 @@ div .left{
   padding: 15px;
 }
 
+/* Image du zombie, positionnée absolument dans le playfield et animée (flottement) */
 #z_img{
   position: absolute;
   width: 120px;
@@ -57,13 +69,21 @@ div .left{
   animation: float 3s ease-in-out infinite;
 }
 
+/* Curseur personnalisé + effet “cible rouge” quand la souris est sur le zombie */
 #z_img:hover{
-  cursor: crosshair;
+  cursor: url("imgs/target.png") 16 16, crosshair; /* cible rouge centrée sur le pointeur */
   opacity: 0.9;
-  transform: translateY(-10px) scale(1.02) rotate(-1deg);
-  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.8));
+  transform: translateY(-10px) scale(1.2) rotate(-1deg);
+  filter:
+    drop-shadow(0 0 6px red)
+    drop-shadow(0 0 16px red)
+    drop-shadow(0 15px 25px rgba(0,0,0,0.8));
 }
 
+/* Effet visuel quand on clique sur le zombie : 
+   - change l’image (zombie_cry)
+   - réduit la taille
+   - petite animation de “shake” */
 #z_img:active{
   opacity: 0.8;
   content: url("imgs/zombie_cry.png");
@@ -73,6 +93,7 @@ div .left{
   animation: shake 0.25s;
 }
 
+/* Panneau de contrôle à droite : stats, boutons, difficulté */
 div .right{
   flex: 0 0 320px;
   margin-left: auto;
@@ -85,18 +106,22 @@ div .right{
   box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
 
+/* Espacement vertical entre les éléments du panneau droit */
 div .right > *{
   margin-bottom: 12px;
 }
 
+/* Pas de marge pour le dernier élément du panneau droit */
 div .right > *:last-child{
   margin-bottom: 0;
 }
 
+/* Taille du texte des paragraphes du panneau droit (stats, labels) */
 .right p{
   font-size: 1.6em;
 }
 
+/* Ligne de boutons de modes (5s, 10s, 30s, 60s) */
 .modes{
   display: flex;
   justify-content: center;
@@ -104,11 +129,13 @@ div .right > *:last-child{
   flex-wrap: wrap;
 }
 
+/* Style visuel du mode actuellement sélectionné */
 .mode-btn.active{
   box-shadow: 0 0 15px #00ffc6;
   filter: brightness(1.2);
 }
 
+/* Style du select de difficulté */
 .difficulty select{
   padding: 4px 10px;
   border-radius: 999px;
@@ -118,10 +145,12 @@ div .right > *:last-child{
   font-family: inherit;
 }
 
+/* Couleur pour les valeurs dynamiques (temps, score, etc.) */
 span{
   color: #00ffc6;
 }
 
+/* Style général pour tous les boutons (Start, Initialize, music, etc.) */
 button{
   background: linear-gradient(135deg, #239bc3, #00ffc6);
   border: none;
@@ -135,17 +164,20 @@ button{
   letter-spacing: 1px;
 }
 
+/* Effet hover sur les boutons (ils montent un peu et deviennent plus lumineux) */
 button:hover{
   transform: translateY(-3px);
   box-shadow: 0 15px 30px rgba(0,0,0,0.7);
   filter: brightness(1.1);
 }
 
+/* Effet quand on clique sur les boutons (ils redescendent) */
 button:active{
   transform: translateY(0);
   box-shadow: 0 5px 15px rgba(0,0,0,0.7);
 }
 
+/* Champ numérique pour la durée personnalisée du timer */
 #start_time{
   width: 100%;
   max-width: 260px;
@@ -162,10 +194,12 @@ button:active{
   -moz-appearance: textfield;
 }
 
+/* Couleur du placeholder (texte grisé) du champ de temps */
 #start_time::placeholder{
   color: rgba(245, 222, 179, 0.6);
 }
 
+/* Effet focus sur le champ de temps (bord et glow turquoise) */
 #start_time:focus{
   border-color: #00ffc6;
   box-shadow:
@@ -173,17 +207,20 @@ button:active{
     0 0 15px #00ffc6;
 }
 
+/* Suppression des petits boutons + et - et de l’icône calendrier sur certains navigateurs */
 #start_time::-webkit-inner-spin-button,
 #start_time::-webkit-calendar-picker-indicator{
   -webkit-appearance: none;
   display: none;
 }
 
+/* Animation de flottement vertical du zombie (effet léger haut/bas) */
 @keyframes float{
   0%,100%{ transform: translateY(0); }
   50%{ transform: translateY(-6px); }
 }
 
+/* Animation de secousse horizontale (utilisée sur le zombie quand il est cliqué) */
 @keyframes shake{
   0%{ transform: translateX(0); }
   25%{ transform: translateX(-5px); }
@@ -192,15 +229,20 @@ button:active{
   100%{ transform: translateX(0); }
 }
 
+/* Version responsive pour les écrans plus petits (mobiles, tablettes) */
 @media (max-width: 768px){
+  /* Moins de padding sur petits écrans */
   body{
     padding: 10px;
   }
 
+  /* Titre centré (reste cohérent) */
   body h1{
     text-align: center;
   }
 
+  /* La zone principale passe en colonne :
+     zombie au-dessus, panneau de contrôle en dessous */
   .main{
     flex-direction: column;
     justify-content: flex-start;
@@ -208,12 +250,14 @@ button:active{
     gap: 10px;
   }
 
+  /* Zone de jeu prend toute la largeur et une hauteur réduite */
   div .left{
     flex: 0 0 auto;
     width: 100%;
     height: 45vh;
   }
 
+  /* Panneau de contrôle centré et plus compact */
   div .right{
     width: 100%;
     max-width: 360px;
@@ -221,10 +265,12 @@ button:active{
     margin-top: auto;
   }
 
+  /* Texte de stats légèrement plus petit sur mobile */
   .right p{
     font-size: 1.3em;
   }
 
+  /* Boutons prennent la largeur disponible sur mobile */
   button{
     width: 100%;
     max-width: 260px;

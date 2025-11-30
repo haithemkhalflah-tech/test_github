@@ -1,25 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Métadonnées de base de la page -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zombie Killer</title>
 
+  <!-- Police Google pour le style cartoon du texte -->
   <link href="https://fonts.googleapis.com/css2?family=Freckle+Face&display=swap" rel="stylesheet" />
+  <!-- Fichier CSS principal du jeu -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <audio src="./music/bg.mp3" autoplay loop></audio>
+  <!-- Son joué quand on clique sur le zombie (tir réussi) -->
+  <audio id="hitSound" src="./sounds/hit.wav" preload="auto"></audio>
+  <audio id="btnSound" src="./sounds/click.wav" preload="auto"></audio>
 
 
+  <!-- Musique de fond en boucle (lue / arrêtée par le bouton music on/off) -->
+  <audio id="bgMusic" src="./sounds/bg.mp3" loop></audio>
+
+  <!-- Titre principal du jeu affiché en haut de la page -->
   <h1>Zombie Killer</h1>
 
+  <!-- Conteneur principal : zone de jeu à gauche + panneau de contrôle à droite -->
   <div class="main">
+    <!-- Zone de jeu où le zombie se déplace -->
     <div class="left" id="playfield">
-      <img src="./imgs/zombie_nocry.png" alt="zombie_attack" draggable="false" id="z_img">
+      <!-- Image du zombie, positionnée et animée par le CSS/JS -->
+      <img
+        src="./imgs/zombie_nocry.png"
+        alt="zombie_attack"
+        draggable="false"
+        id="z_img"
+      >
     </div>
 
+    <!-- Panneau de contrôle : boutons, difficulté, stats -->
     <div class="right">
+      <!-- Boutons pour choisir rapidement la durée de la partie -->
       <div class="modes">
         <button class="mode-btn" data-seconds="5">5s</button>
         <button class="mode-btn" data-seconds="10">10s</button>
@@ -27,7 +46,16 @@
         <button class="mode-btn" data-seconds="60">60s</button>
       </div>
 
-      <input type="number" name="start_time" id="start_time" placeholder="or type custom seconds" min="1">
+      <!-- Champ pour saisir un temps personnalisé (en secondes) -->
+      <input
+        type="number"
+        name="start_time"
+        id="start_time"
+        placeholder="or type custom seconds"
+        min="1"
+      >
+
+      <!-- Sélecteur de difficulté : easy / medium / hard -->
       <div class="difficulty">
         <label>
           Difficulty:
@@ -39,17 +67,28 @@
         </label>
       </div>
 
+      <!-- Bouton pour démarrer une nouvelle partie -->
       <button id="start_btn">start_game</button>
+      <!-- Bouton pour réinitialiser complètement le jeu -->
       <button id="init_btn">initialize</button>
 
+      <!-- Bouton pour lancer / arrêter la musique de fond -->
+      <button id="mute_btn">music on/off</button>
+
+      <!-- Affichage du temps restant en secondes -->
       <p>time remaining <span class="last_time">0</span> seconds</p>
+      <!-- Nombre de tirs réussis pendant la partie en cours -->
       <p>shooted <span class="counter">0</span> times</p>
+      <!-- Meilleur score (nombre max de tirs réussis sur toutes les parties) -->
       <p>current record <span class="record">0</span> clicks</p>
+      <!-- Moyenne de tirs par seconde (CPS) sur la partie en cours -->
       <p>shots per second <span class="ratio">0</span></p>
+      <!-- Rang obtenu en fonction de la CPS (Slow Zombie, Walker, etc.) -->
       <p>rank: <span class="rank">-</span></p>
     </div>
   </div>
 
+  <!-- Fichier JavaScript qui gère la logique du jeu (timer, mouvement, sons, etc.) -->
   <script src="java.js"></script>
 </body>
 </html>
