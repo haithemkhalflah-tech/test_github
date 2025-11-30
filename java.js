@@ -37,9 +37,9 @@ let totalClicks = 0;
 // Retourne l’intervalle de déplacement du zombie selon la difficulté
 function getMoveInterval() {
   const diff = difficultySelect.value;
-  if (diff === "easy") return 900;  // zombie plus lent
-  if (diff === "hard") return 700;  // zombie plus rapide
-  return 800;                       // medium par défaut
+  if (diff === "easy") return 900;  // zombie plus lent (bouge moins souvent)
+  if (diff === "hard") return 450;  // zombie plus rapide (bouge plus souvent)
+  return 600;                       // medium par défaut
 }
 
 // Donne un rang texte en fonction des clics par seconde (CPS)
@@ -51,7 +51,7 @@ function getRank(cps) {
   return "Demon Slayer";
 }
 
-// Choisit une nouvelle position aléatoire pour le zombie
+// Choisit une nouvelle position aléatoire pour le zombie (distance 100% aléatoire)
 function moveZombieRandom() {
   const fieldRect = playfield.getBoundingClientRect();
   const imgRect   = zombieImg.getBoundingClientRect();
@@ -59,30 +59,8 @@ function moveZombieRandom() {
   const maxX = fieldRect.width  - imgRect.width;
   const maxY = fieldRect.height - imgRect.height;
 
-  const currentX = parseFloat(zombieImg.style.left) || maxX / 2;
-  const currentY = parseFloat(zombieImg.style.top)  || maxY / 2;
-
-  let minFactor;
-  const diff = difficultySelect.value;
-  if (diff === "easy")      minFactor = 0.4;
-  else if (diff === "hard") minFactor = 0.8;
-  else                      minFactor = 0.6;
-
-  const diag    = Math.sqrt(maxX * maxX + maxY * maxY);
-  const minDist = diag * minFactor;
-
-  let x, y, tries = 0;
-  while (true) {
-    x = Math.random() * Math.max(maxX, 0);
-    y = Math.random() * Math.max(maxY, 0);
-
-    const dx   = x - currentX;
-    const dy   = y - currentY;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-
-    if (dist >= minDist || tries > 20) break;
-    tries++;
-  }
+  const x = Math.random() * Math.max(maxX, 0);
+  const y = Math.random() * Math.max(maxY, 0);
 
   zombieImg.style.left = `${x}px`;
   zombieImg.style.top  = `${y}px`;
